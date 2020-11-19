@@ -19,6 +19,7 @@ public class DanhSachThietBiDAOimpl implements DanhSachThietBiDAO{
 		ds.setID_P(resultSet.getLong("ID_P"));
 		ds.setID_TB(resultSet.getLong("ID_TB"));
 		ds.setSoLuong(resultSet.getLong("SoLuong"));
+		ds.setActive(resultSet.getBoolean("active"));
 		return ds;
 	}
 
@@ -126,8 +127,8 @@ public class DanhSachThietBiDAOimpl implements DanhSachThietBiDAO{
 
 	@Override
 	public boolean delete(DanhSachThietBi t) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		t.setActive(false);
+		return update(t);
 	}
 
 }

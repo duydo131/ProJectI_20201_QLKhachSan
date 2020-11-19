@@ -8,6 +8,7 @@ public class HoaDon {
 	private Date NgayLap;
 	private Long Thue;
 	private Long PhiPhatSinh = 0L;
+	private Boolean active = true;
 	
 	public HoaDon() {
 	}
@@ -18,6 +19,23 @@ public class HoaDon {
 		NgayLap = ngayLap;
 		Thue = thue;
 		PhiPhatSinh = phiPhatSinh;
+	}
+	
+	public HoaDon(Long iD, Long iD_TP, Date ngayLap, Long thue, Long phiPhatSinh, Boolean active) {
+		ID = iD;
+		ID_TP = iD_TP;
+		NgayLap = ngayLap;
+		Thue = thue;
+		PhiPhatSinh = phiPhatSinh;
+		this.active = active;
+	}
+	
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	public Long getID() {

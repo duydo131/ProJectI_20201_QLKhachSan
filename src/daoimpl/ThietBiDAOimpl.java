@@ -19,6 +19,7 @@ public class ThietBiDAOimpl implements ThietBiDAO{
 		tb.setID(resultSet.getLong("ID"));
 		tb.setTenTB(resultSet.getString("TenTB"));
 		tb.setGia(resultSet.getLong("Gia"));
+		tb.setActive(resultSet.getBoolean("active"));
 		return tb;
 	}
 
@@ -86,13 +87,8 @@ public class ThietBiDAOimpl implements ThietBiDAO{
 
 	@Override
 	public boolean delete(ThietBi t) throws SQLException {
-		boolean result = false;
-        String sql = "delete from thietbi where ID = ?";
-        PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
-        preparedStatement.setLong(1, t.getID());
-        int rs = preparedStatement.executeUpdate();
-        if (rs > 0) result = true;
-        return result;
+		t.setActive(false);
+		return update(t);
 	}
 
 }

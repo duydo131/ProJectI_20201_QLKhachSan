@@ -10,6 +10,7 @@ public class NhanVien {
 	private String ChuyenMon;
 	private String CMND;
 	private String DienThoai;
+	private Boolean active = true;
 	
 	public NhanVien() {
 	}
@@ -23,6 +24,18 @@ public class NhanVien {
 		ChuyenMon = chuyenMon;
 		CMND = cMND;
 		DienThoai = dienThoai;
+	}
+
+	public NhanVien(Long iD, String ten, Boolean gioiTinh, Date ngaySinh, String chuyenMon, String cMND,
+			String dienThoai, Boolean active) {
+		ID = iD;
+		Ten = ten;
+		GioiTinh = gioiTinh;
+		NgaySinh = ngaySinh;
+		ChuyenMon = chuyenMon;
+		CMND = cMND;
+		DienThoai = dienThoai;
+		this.active = active;
 	}
 
 	public Long getID() {
@@ -79,5 +92,13 @@ public class NhanVien {
 
 	public void setDienThoai(String dienThoai) {
 		DienThoai = dienThoai;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

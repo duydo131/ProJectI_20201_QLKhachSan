@@ -5,11 +5,27 @@ public class DangNhap {
     private String password;
     private String maNV;
     private int id;
+    private Boolean active = true;
 
     public DangNhap() {
     }
+    
+    public DangNhap(String username, String password, String maNV, int id) {
+		this.username = username;
+		this.password = password;
+		this.maNV = maNV;
+		this.id = id;
+	}
 
-    public int getId() {
+    public DangNhap(String username, String password, String maNV, int id, Boolean active) {
+		this.username = username;
+		this.password = password;
+		this.maNV = maNV;
+		this.id = id;
+		this.active = active;
+	}
+
+	public int getId() {
         return id;
     }
 
@@ -17,15 +33,15 @@ public class DangNhap {
         this.id = id;
     }
 
-    public DangNhap(String username, String password, String maNV, int id) {
-        this.username = username;
-        this.password = password;
-        this.maNV = maNV;
-        this.id = id;
-    }
+    public Boolean getActive() {
+		return active;
+	}
 
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
 
-    public String getPassword() {
+	public String getPassword() {
         return password;
     }
 

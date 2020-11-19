@@ -9,25 +9,29 @@ Create table khachHang(
     DienThoai char(11),
     QuocTich nvarchar(50),
     NgaySinh Date,
-    Nghe nvarchar(50)
+    Nghe nvarchar(50),
+    active boolean default true
 );
 
 create table login(
 	User char(30) not null,
     Password char(30) not null,
-    ID_NV bigint not null
+    ID_NV bigint not null,
+    active boolean default true
 );
 
 create table thietbi(
 	ID bigint primary key auto_increment,
     TenTB nvarchar(50) not null,
-    Gia bigint not null
+    Gia bigint not null,
+    active boolean default true
 );
 
 create table danhSachThietBi(
 	ID_P bigint not null,
     ID_TB bigint not null,
-    SoLuong bigint default 0
+    SoLuong bigint default 0,
+    active boolean default true
 );
 
 create table hoaDon(
@@ -35,24 +39,27 @@ create table hoaDon(
     ID_TP bigint not null,
     NgayLap datetime not null,
     Thue bigint not null,
-    PhiPhatSinh bigint default 0
+    PhiPhatSinh bigint default 0,
+    active boolean default true
 );
 
 create table thuePhong(
 	ID bigint primary key auto_increment,
-		ID_KH bigint not null,
-		NgayDangKi datetime not null,
-		NgayDen datetime not null,
-		NgayHenDi datetime not null,
-		NgayDi datetime,
-		TienCoc bigint default 0
+	ID_KH bigint not null,
+	NgayDangKi datetime not null,
+	NgayDen datetime not null,
+	NgayHenDi datetime not null,
+	NgayDi datetime,
+	TienCoc bigint default 0,
+    active boolean default true
 );
 
 create table phong(
 	ID bigint primary key auto_increment,
     LoaiPhong char(5),
     GiaPhong bigint not null,
-    TinhTrang nvarchar(50) default N''
+    TinhTrang nvarchar(50) default N'',
+    active boolean default true
 );
 
 create table nhanVien(
@@ -62,17 +69,20 @@ create table nhanVien(
     NgaySinh Date not null,
     ChuyenMon nvarchar(50),
     CMND char(30) not null,
-    DienThoai char(20)	
+    DienThoai char(20),
+    active boolean default true
 );
 
 create table chiTietThuePhong(
 	ID bigint primary key auto_increment,
-    ID_P bigint not null
+    ID_P bigint not null,
+    active boolean default true
 );
 
 create table connect(
 	ID_TP bigint not null,
-    ID_chiTiet bigint not null
+    ID_chiTiet bigint not null,
+    active boolean default true
 ); 
 
 alter table login add constraint login_NV foreign key (ID_NV) references nhanVien(ID);

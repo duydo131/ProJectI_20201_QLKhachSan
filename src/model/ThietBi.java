@@ -4,6 +4,7 @@ public class ThietBi {
 	private Long ID; 
     private String TenTB;
     private Long Gia;
+    private Boolean active = true;
     
 	public ThietBi() {
 	}
@@ -12,6 +13,13 @@ public class ThietBi {
 		ID = iD;
 		TenTB = tenTB;
 		Gia = gia;
+	}
+
+	public ThietBi(Long iD, String tenTB, Long gia, Boolean active) {
+		ID = iD;
+		TenTB = tenTB;
+		Gia = gia;
+		this.active = active;
 	}
 
 	public Long getID() {
@@ -36,5 +44,13 @@ public class ThietBi {
 
 	public void setGia(Long gia) {
 		Gia = gia;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	} 
 }

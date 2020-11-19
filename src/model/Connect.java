@@ -6,7 +6,7 @@ public class Connect {
     
 	public Connect() {
 	}
-
+	
 	public Connect(Long iD_TP, Long iD_chiTiet) {
 		ID_TP = iD_TP;
 		ID_chiTiet = iD_chiTiet;

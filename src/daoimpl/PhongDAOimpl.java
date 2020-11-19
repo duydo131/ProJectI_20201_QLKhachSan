@@ -20,6 +20,7 @@ private MyConnection myConnection = new MyConnection();
 		tb.setLoaiPhong(resultSet.getString("LoaiPhong"));
 		tb.setGiaPhong(resultSet.getLong("GiaPhong"));
 		tb.setTinhTrang(resultSet.getString("GiaPhong"));
+		tb.setActive(resultSet.getBoolean("active"));
 		return tb;
 	}
 
@@ -89,13 +90,8 @@ private MyConnection myConnection = new MyConnection();
 
 	@Override
 	public boolean delete(Phong t) throws SQLException {
-		boolean result = false;
-        String sql = "delete from phong where ID = ?";
-        PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
-        preparedStatement.setLong(1, t.getID());
-        int rs = preparedStatement.executeUpdate();
-        if (rs > 0) result = true;
-        return result;
+		t.setActive(false);
+		return update(t);
 	}
 
 }

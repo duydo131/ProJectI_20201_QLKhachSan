@@ -24,6 +24,7 @@ public class NhanVienDAOimpl implements NhanVienDAO{
 		tb.setChuyenMon(resultSet.getString("ChuyenMon"));
 		tb.setCMND(resultSet.getString("CMND"));
 		tb.setDienThoai(resultSet.getString("DienThoai"));
+		tb.setActive(resultSet.getBoolean("active"));
 		return tb;
 	}
 
@@ -99,12 +100,7 @@ public class NhanVienDAOimpl implements NhanVienDAO{
 
 	@Override
 	public boolean delete(NhanVien t) throws SQLException {
-		boolean result = false;
-        String sql = "delete from nhanVien where ID = ?";
-        PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
-        preparedStatement.setLong(1, t.getID());
-        int rs = preparedStatement.executeUpdate();
-        if (rs > 0) result = true;
-        return result;
+		t.setActive(false);
+		return update(t);
 	}
 }

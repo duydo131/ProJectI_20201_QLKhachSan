@@ -14,6 +14,7 @@ public class KhachHang {
     private String ngheNghiep;
     private String phanLoaiKH;
     private String tenToChuc;
+    private Boolean active = true;
 
     public KhachHang() {
     }
@@ -33,7 +34,23 @@ public class KhachHang {
         this.tenToChuc = tenToChuc;
     }
 
-    public String getMaKH() {
+    public KhachHang(String maKH, String tenKH, String cmnd, boolean gioiTinh, String diaChi, String dienThoai,
+			String quocTich, Date ngaySinh, String ngheNghiep, String phanLoaiKH, String tenToChuc, Boolean active) {
+		this.maKH = maKH;
+		this.tenKH = tenKH;
+		this.cmnd = cmnd;
+		this.gioiTinh = gioiTinh;
+		this.diaChi = diaChi;
+		this.dienThoai = dienThoai;
+		this.quocTich = quocTich;
+		this.ngaySinh = ngaySinh;
+		this.ngheNghiep = ngheNghiep;
+		this.phanLoaiKH = phanLoaiKH;
+		this.tenToChuc = tenToChuc;
+		this.active = active;
+	}
+
+	public String getMaKH() {
         return maKH;
     }
 
@@ -120,4 +137,12 @@ public class KhachHang {
     public void setDienThoai(String dienThoai) {
         this.dienThoai = dienThoai;
     }
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
 }

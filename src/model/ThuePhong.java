@@ -10,6 +10,7 @@ public class ThuePhong {
 	private Date NgayHenDi;
 	private Date NgayDi;
 	private Long TienCoc;
+	private Boolean active = true;
 
 	public ThuePhong() {
 	}
@@ -22,6 +23,18 @@ public class ThuePhong {
 		NgayHenDi = ngayHenDi;
 		NgayDi = ngayDi;
 		TienCoc = tienCoc;
+	}
+
+	public ThuePhong(Long iD, Long iD_KH, Date ngayDangKi, Date ngayDen, Date ngayHenDi, Date ngayDi, Long tienCoc,
+			Boolean active) {
+		ID = iD;
+		ID_KH = iD_KH;
+		NgayDangKi = ngayDangKi;
+		NgayDen = ngayDen;
+		NgayHenDi = ngayHenDi;
+		NgayDi = ngayDi;
+		TienCoc = tienCoc;
+		this.active = active;
 	}
 
 	public Long getID() {
@@ -78,5 +91,13 @@ public class ThuePhong {
 
 	public void setTienCoc(Long tienCoc) {
 		TienCoc = tienCoc;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

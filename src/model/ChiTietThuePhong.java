@@ -3,13 +3,20 @@ package model;
 public class ChiTietThuePhong {
 	private Long ID;
     private Long ID_P;
+	private Boolean active = true;
     
 	public ChiTietThuePhong() {
 	}
 
 	public ChiTietThuePhong(Long iD, Long iD_P) {
-		ID = iD;
-		ID_P = iD_P;
+		this.ID = iD;
+		this.ID_P = iD_P;
+	}
+
+	public ChiTietThuePhong(Long iD, Long iD_P, Boolean active) {
+		this.ID = iD;
+		this.ID_P = iD_P;
+		this.active = active;
 	}
 
 	public Long getID() {
@@ -26,5 +33,13 @@ public class ChiTietThuePhong {
 
 	public void setID_P(Long iD_P) {
 		ID_P = iD_P;
+	}
+
+    public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

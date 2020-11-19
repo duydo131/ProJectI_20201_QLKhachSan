@@ -5,6 +5,7 @@ public class Phong {
     private String LoaiPhong;
     private Long GiaPhong;
     private String TinhTrang = "";
+    private Boolean active = true;
     
 	public Phong() {
 	}
@@ -14,6 +15,14 @@ public class Phong {
 		LoaiPhong = loaiPhong;
 		GiaPhong = giaPhong;
 		TinhTrang = tinhTrang;
+	}
+
+	public Phong(Long iD, String loaiPhong, Long giaPhong, String tinhTrang, Boolean active) {
+		ID = iD;
+		LoaiPhong = loaiPhong;
+		GiaPhong = giaPhong;
+		TinhTrang = tinhTrang;
+		this.active = active;
 	}
 
 	public Long getID() {
@@ -46,5 +55,13 @@ public class Phong {
 
 	public void setTinhTrang(String tinhTrang) {
 		TinhTrang = tinhTrang;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

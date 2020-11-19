@@ -22,6 +22,7 @@ public class HoaDonDAOimpl implements HoaDonDAO{
 		hd.setNgayLap(resultSet.getDate("NgayLap"));
 		hd.setPhiPhatSinh(resultSet.getLong("PhiPhatSinh"));
 		hd.setThue(resultSet.getLong("Thue"));
+		hd.setActive(resultSet.getBoolean("active"));
 		return hd;
 	}
 
@@ -93,13 +94,8 @@ public class HoaDonDAOimpl implements HoaDonDAO{
 
 	@Override
 	public boolean delete(HoaDon t) throws SQLException {
-		boolean result = false;
-        String sql = "delete from hoaDon where ID = ?";
-        PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
-        preparedStatement.setLong(1, t.getID());
-        int rs = preparedStatement.executeUpdate();
-        if (rs > 0) result = true;
-        return result;
+		t.setActive(false);
+		return update(t);
 	}
 
 }

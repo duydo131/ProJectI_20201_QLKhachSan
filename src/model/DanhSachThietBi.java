@@ -4,7 +4,8 @@ public class DanhSachThietBi {
 	private Long ID_P;
     private Long ID_TB;
     private Long SoLuong = 0L;
-    
+    private Boolean active = true;
+
 	public DanhSachThietBi() {
 	}
 
@@ -12,6 +13,13 @@ public class DanhSachThietBi {
 		ID_P = iD_P;
 		ID_TB = iD_TB;
 		SoLuong = soLuong;
+	}
+
+	public DanhSachThietBi(Long iD_P, Long iD_TB, Long soLuong, Boolean active) {
+		ID_P = iD_P;
+		ID_TB = iD_TB;
+		SoLuong = soLuong;
+		this.active = active;
 	}
 
 	public Long getID_P() {
@@ -36,5 +44,13 @@ public class DanhSachThietBi {
 
 	public void setSoLuong(Long soLuong) {
 		SoLuong = soLuong;
+	}
+    
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

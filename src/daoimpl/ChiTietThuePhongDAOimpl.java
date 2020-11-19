@@ -18,6 +18,7 @@ public class ChiTietThuePhongDAOimpl implements ChiTietThuePhongDAO{
 		ChiTietThuePhong tb = new ChiTietThuePhong();
 		tb.setID(resultSet.getLong("ID"));
 		tb.setID_P(resultSet.getLong("ID_P"));
+		tb.setActive(resultSet.getBoolean("active"));
 		return tb;
 	}
 
@@ -83,12 +84,7 @@ public class ChiTietThuePhongDAOimpl implements ChiTietThuePhongDAO{
 
 	@Override
 	public boolean delete(ChiTietThuePhong t) throws SQLException {
-		boolean result = false;
-        String sql = "delete from chiTietThuePhong where ID = ?";
-        PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
-        preparedStatement.setLong(1, t.getID());
-        int rs = preparedStatement.executeUpdate();
-        if (rs > 0) result = true;
-        return result;
+		t.setActive(false);
+		return update(t);
 	}
 }

@@ -25,6 +25,8 @@ public class KhachHangDaoImpl implements KhachHangDao {
                 resultSet.getString("nghe_nghiep"),
                 resultSet.getString("phan_loai_kh"),
                 resultSet.getString("ten_to_chuc"));
+        
+		khachHang.setActive(resultSet.getBoolean("active"));
 
         return khachHang;
     }
@@ -58,7 +60,7 @@ public class KhachHangDaoImpl implements KhachHangDao {
 
 	@Override
 	public boolean delete(KhachHang t) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		t.setActive(false);
+		return update(t);
 	}
 }
