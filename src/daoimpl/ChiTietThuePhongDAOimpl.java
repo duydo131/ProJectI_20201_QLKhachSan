@@ -34,7 +34,7 @@ public class ChiTietThuePhongDAOimpl implements ChiTietThuePhongDAO{
 
 	@Override
 	public List<ChiTietThuePhong> findAll() throws SQLException {
-		String sql = "select * from chiTietThuePhong";
+		String sql = "select * from chiTietThuePhong where and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         return getList(resultSet);
@@ -43,7 +43,7 @@ public class ChiTietThuePhongDAOimpl implements ChiTietThuePhongDAO{
 	@Override
 	public ChiTietThuePhong findById(int id) throws SQLException {
 		ChiTietThuePhong tb = null;
-        String sql = "select * from chiTietThuePhong where ID = ?";
+        String sql = "select * from chiTietThuePhong where ID = ? and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -73,10 +73,11 @@ public class ChiTietThuePhongDAOimpl implements ChiTietThuePhongDAO{
 	@Override
 	public boolean update(ChiTietThuePhong t) throws SQLException {
 		boolean result = false;
-        String sql = "update chiTietThuePhong set ID_P = ? where ID = ?;";
+        String sql = "update chiTietThuePhong set ID_P = ?, active = ? where ID = ?;";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setLong(1, t.getID_P());
-        preparedStatement.setLong(2, t.getID());
+        preparedStatement.setBoolean(2, t.getActive());
+        preparedStatement.setLong(3, t.getID());
         int rs = preparedStatement.executeUpdate();
         if (rs > 0) result = true;
         return result;

@@ -35,7 +35,7 @@ public class ThietBiDAOimpl implements ThietBiDAO{
 
 	@Override
 	public List<ThietBi> findAll() throws SQLException {
-		String sql = "select * from thietbi";
+		String sql = "select * from thietbi where active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         return getList(resultSet);
@@ -44,7 +44,7 @@ public class ThietBiDAOimpl implements ThietBiDAO{
 	@Override
 	public ThietBi findById(int id) throws SQLException {
 		ThietBi tb = null;
-        String sql = "select * from thietbi where ID = ?";
+        String sql = "select * from thietbi where ID = ? and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -75,11 +75,12 @@ public class ThietBiDAOimpl implements ThietBiDAO{
 	@Override
 	public boolean update(ThietBi t) throws SQLException {
 		boolean result = false;
-        String sql = "update thietbi set TenTB = ?, Gia = ? where ID = ?;";
+        String sql = "update thietbi set TenTB = ?, Gia = ?, active = ? where ID = ?;";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setString(1, t.getTenTB());
         preparedStatement.setLong(2, t.getGia());
-        preparedStatement.setLong(3, t.getID());
+        preparedStatement.setBoolean(3, t.getActive());
+        preparedStatement.setLong(4, t.getID());
         int rs = preparedStatement.executeUpdate();
         if (rs > 0) result = true;
         return result;

@@ -38,7 +38,7 @@ public class HoaDonDAOimpl implements HoaDonDAO{
 
 	@Override
 	public List<HoaDon> findAll() throws SQLException {
-		String sql = "select * from hoaDon";
+		String sql = "select * from hoaDon where active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         return getList(resultSet);
@@ -47,7 +47,7 @@ public class HoaDonDAOimpl implements HoaDonDAO{
 	@Override
 	public HoaDon findById(int id) throws SQLException {
 		HoaDon tb = null;
-        String sql = "select * from hoaDon where ID = ?";
+        String sql = "select * from hoaDon where ID = ? and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -80,13 +80,14 @@ public class HoaDonDAOimpl implements HoaDonDAO{
 	@Override
 	public boolean update(HoaDon t) throws SQLException {
 		boolean result = false;
-        String sql = "update hoaDon set ID_TP = ?, NgayLap = ?, Thue = ?, PhiPhatSinh = ? where ID = ?;";
+        String sql = "update hoaDon set ID_TP = ?, NgayLap = ?, Thue = ?, PhiPhatSinh = ?, active = ? where ID = ?;";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setLong(1, t.getID_TP());
         preparedStatement.setDate(2, new java.sql.Date(((Date) t.getNgayLap()).getTime()));
         preparedStatement.setLong(3, t.getThue());
         preparedStatement.setLong(4, t.getPhiPhatSinh());
-        preparedStatement.setLong(5, t.getID());
+        preparedStatement.setBoolean(5, t.getActive());
+        preparedStatement.setLong(6, t.getID());
         int rs = preparedStatement.executeUpdate();
         if (rs > 0) result = true;
         return result;

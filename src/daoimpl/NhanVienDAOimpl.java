@@ -40,7 +40,7 @@ public class NhanVienDAOimpl implements NhanVienDAO{
 
 	@Override
 	public List<NhanVien> findAll() throws SQLException {
-		String sql = "select * from nhanVien";
+		String sql = "select * from nhanVien where active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         return getList(resultSet);
@@ -49,7 +49,7 @@ public class NhanVienDAOimpl implements NhanVienDAO{
 	@Override
 	public NhanVien findById(int id) throws SQLException {
 		NhanVien tb = null;
-        String sql = "select * from nhanVien where ID = ?";
+        String sql = "select * from nhanVien where ID = ? and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -84,7 +84,8 @@ public class NhanVienDAOimpl implements NhanVienDAO{
 	@Override
 	public boolean update(NhanVien t) throws SQLException {
 		boolean result = false;
-        String sql = "update nhanVien set TenTB = ?, Gia = ? where ID = ?;";
+        String sql = "update nhanVien set Ten = ?, GioiTinh = ?, NgaySinh = ?, ChuyenMon = ?, CMND = ?, "
+        		+ "DienThoai = ?, active = ? where ID = ?;";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setString(1, t.getTen());
         preparedStatement.setBoolean(2, t.getGioiTinh());
@@ -92,7 +93,8 @@ public class NhanVienDAOimpl implements NhanVienDAO{
         preparedStatement.setString(4, t.getChuyenMon());
         preparedStatement.setString(5, t.getCMND());
         preparedStatement.setString(6, t.getDienThoai());
-        preparedStatement.setLong(7, t.getID());
+        preparedStatement.setBoolean(7, t.getActive());
+        preparedStatement.setLong(8,  t.getID());
         int rs = preparedStatement.executeUpdate();
         if (rs > 0) result = true;
         return result;

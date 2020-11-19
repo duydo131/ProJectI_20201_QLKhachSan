@@ -36,7 +36,7 @@ private MyConnection myConnection = new MyConnection();
 
 	@Override
 	public List<Phong> findAll() throws SQLException {
-		String sql = "select * from phong";
+		String sql = "select * from phong where active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         return getList(resultSet);
@@ -45,7 +45,7 @@ private MyConnection myConnection = new MyConnection();
 	@Override
 	public Phong findById(int id) throws SQLException {
 		Phong tb = null;
-        String sql = "select * from phong where ID = ?";
+        String sql = "select * from phong where ID = ? and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -77,12 +77,13 @@ private MyConnection myConnection = new MyConnection();
 	@Override
 	public boolean update(Phong t) throws SQLException {
 		boolean result = false;
-        String sql = "update phong set LoaiPhong = ?, GiaPhong = ?, TinhTrang = ? where ID = ?;";
+        String sql = "update phong set LoaiPhong = ?, GiaPhong = ?, TinhTrang = ?, active = ? where ID = ?";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setString(1, t.getLoaiPhong());
         preparedStatement.setLong(2, t.getGiaPhong());
         preparedStatement.setString(3, t.getTinhTrang());
-        preparedStatement.setLong(4, t.getID());
+        preparedStatement.setBoolean(4, t.getActive());
+        preparedStatement.setLong(5, t.getID());
         int rs = preparedStatement.executeUpdate();
         if (rs > 0) result = true;
         return result;

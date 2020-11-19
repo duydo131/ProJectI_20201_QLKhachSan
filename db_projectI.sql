@@ -10,14 +10,15 @@ Create table khachHang(
     QuocTich nvarchar(50),
     NgaySinh Date,
     Nghe nvarchar(50),
+    PhanLoaiKhachHang nvarchar(200),
+	ToChuc nvarchar(200),
     active boolean default true
 );
 
 create table login(
 	User char(30) not null,
     Password char(30) not null,
-    ID_NV bigint not null,
-    active boolean default true
+    ID_NV bigint not null
 );
 
 create table thietbi(
@@ -30,8 +31,7 @@ create table thietbi(
 create table danhSachThietBi(
 	ID_P bigint not null,
     ID_TB bigint not null,
-    SoLuong bigint default 0,
-    active boolean default true
+    SoLuong bigint default 0
 );
 
 create table hoaDon(
@@ -81,8 +81,7 @@ create table chiTietThuePhong(
 
 create table connect(
 	ID_TP bigint not null,
-    ID_chiTiet bigint not null,
-    active boolean default true
+    ID_chiTiet bigint not null
 ); 
 
 alter table login add constraint login_NV foreign key (ID_NV) references nhanVien(ID);

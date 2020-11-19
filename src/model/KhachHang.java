@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class KhachHang {
-    private String maKH;
+    private Long maKH;
     private String tenKH;
     private String cmnd;
     private boolean gioiTinh;
@@ -19,7 +19,7 @@ public class KhachHang {
     public KhachHang() {
     }
 
-    public KhachHang(String maKH, String tenKH, String cmnd, boolean gioiTinh, String diaChi, String dienThoai,
+    public KhachHang(Long maKH, String tenKH, String cmnd, boolean gioiTinh, String diaChi, String dienThoai,
                      String quocTich, Date ngaySinh, String ngheNghiep, String phanLoaiKH, String tenToChuc) {
         this.maKH = maKH;
         this.tenKH = tenKH;
@@ -34,7 +34,7 @@ public class KhachHang {
         this.tenToChuc = tenToChuc;
     }
 
-    public KhachHang(String maKH, String tenKH, String cmnd, boolean gioiTinh, String diaChi, String dienThoai,
+    public KhachHang(Long maKH, String tenKH, String cmnd, boolean gioiTinh, String diaChi, String dienThoai,
 			String quocTich, Date ngaySinh, String ngheNghiep, String phanLoaiKH, String tenToChuc, Boolean active) {
 		this.maKH = maKH;
 		this.tenKH = tenKH;
@@ -50,11 +50,11 @@ public class KhachHang {
 		this.active = active;
 	}
 
-	public String getMaKH() {
+	public Long getMaKH() {
         return maKH;
     }
 
-    public void setMaKH(String maKH) {
+    public void setMaKH(Long maKH) {
         this.maKH = maKH;
     }
 

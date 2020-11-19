@@ -40,7 +40,7 @@ public class ThuePhongDAOimpl implements ThuePhongDAO{
 
 	@Override
 	public List<ThuePhong> findAll() throws SQLException {
-		String sql = "select * from thuePhong";
+		String sql = "select * from thuePhong where active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         return getList(resultSet);
@@ -49,7 +49,7 @@ public class ThuePhongDAOimpl implements ThuePhongDAO{
 	@Override
 	public ThuePhong findById(int id) throws SQLException {
 		ThuePhong tb = null;
-        String sql = "select * from thuePhong where ID = ?";
+        String sql = "select * from thuePhong where ID = ? and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -66,10 +66,10 @@ public class ThuePhongDAOimpl implements ThuePhongDAO{
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setLong(1, t.getID_KH());
         preparedStatement.setDate(2, new java.sql.Date(((Date)t.getNgayDangKi()).getTime()));
-        preparedStatement.setDate(1, new java.sql.Date(((Date)t.getNgayDen()).getTime()));
-        preparedStatement.setDate(2, new java.sql.Date(((Date)t.getNgayHenDi()).getTime()));
-        preparedStatement.setDate(1, new java.sql.Date(((Date)t.getNgayDi()).getTime()));
-        preparedStatement.setLong(2, t.getTienCoc());
+        preparedStatement.setDate(3, new java.sql.Date(((Date)t.getNgayDen()).getTime()));
+        preparedStatement.setDate(4, new java.sql.Date(((Date)t.getNgayHenDi()).getTime()));
+        preparedStatement.setDate(5, new java.sql.Date(((Date)t.getNgayDi()).getTime()));
+        preparedStatement.setLong(6, t.getTienCoc());
         int rs = preparedStatement.executeUpdate();
 
         if (rs > 0){
@@ -85,15 +85,16 @@ public class ThuePhongDAOimpl implements ThuePhongDAO{
 	public boolean update(ThuePhong t) throws SQLException {
 		boolean result = false;
         String sql = "update thuePhong set ID_KH = ?, NgayDangKi = ?, NgayDen = ?, NgayHenDi = ?, "
-        		+ "NgayDi = ?, TienCoc = ? where ID = ?;";
+        		+ "NgayDi = ?, TienCoc = ?, active = ? where ID = ?;";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setLong(1, t.getID_KH());
         preparedStatement.setDate(2, new java.sql.Date(((Date)t.getNgayDangKi()).getTime()));
-        preparedStatement.setDate(1, new java.sql.Date(((Date)t.getNgayDen()).getTime()));
-        preparedStatement.setDate(2, new java.sql.Date(((Date)t.getNgayHenDi()).getTime()));
-        preparedStatement.setDate(1, new java.sql.Date(((Date)t.getNgayDi()).getTime()));
-        preparedStatement.setLong(2, t.getTienCoc());
-        preparedStatement.setLong(7, t.getID());
+        preparedStatement.setDate(3, new java.sql.Date(((Date)t.getNgayDen()).getTime()));
+        preparedStatement.setDate(4, new java.sql.Date(((Date)t.getNgayHenDi()).getTime()));
+        preparedStatement.setDate(5, new java.sql.Date(((Date)t.getNgayDi()).getTime()));
+        preparedStatement.setLong(6, t.getTienCoc());
+        preparedStatement.setBoolean(7,  t.getActive());
+        preparedStatement.setLong(8, t.getID());
         int rs = preparedStatement.executeUpdate();
         if (rs > 0) result = true;
         return result;
