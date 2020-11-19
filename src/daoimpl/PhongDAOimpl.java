@@ -19,8 +19,7 @@ private MyConnection myConnection = new MyConnection();
 		tb.setID(resultSet.getLong("ID"));
 		tb.setLoaiPhong(resultSet.getString("LoaiPhong"));
 		tb.setGiaPhong(resultSet.getLong("GiaPhong"));
-		tb.setTinhTrang(resultSet.getString("GiaPhong"));
-		tb.setActive(resultSet.getBoolean("active"));
+		tb.setTinhTrang(resultSet.getInt("TinhTrang"));
 		return tb;
 	}
 
@@ -36,7 +35,7 @@ private MyConnection myConnection = new MyConnection();
 
 	@Override
 	public List<Phong> findAll() throws SQLException {
-		String sql = "select * from phong where active = true";
+		String sql = "select * from phong";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         return getList(resultSet);
@@ -45,7 +44,7 @@ private MyConnection myConnection = new MyConnection();
 	@Override
 	public Phong findById(int id) throws SQLException {
 		Phong tb = null;
-        String sql = "select * from phong where ID = ? and active = true";
+        String sql = "select * from phong where ID = ? ";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -62,7 +61,7 @@ private MyConnection myConnection = new MyConnection();
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setString(1, t.getLoaiPhong());
         preparedStatement.setLong(2, t.getGiaPhong());
-        preparedStatement.setString(3, t.getTinhTrang());
+        preparedStatement.setInt(3, t.getTinhTrang());
         int rs = preparedStatement.executeUpdate();
 
         if (rs > 0){
@@ -77,13 +76,12 @@ private MyConnection myConnection = new MyConnection();
 	@Override
 	public boolean update(Phong t) throws SQLException {
 		boolean result = false;
-        String sql = "update phong set LoaiPhong = ?, GiaPhong = ?, TinhTrang = ?, active = ? where ID = ?";
+        String sql = "update phong set LoaiPhong = ?, GiaPhong = ?, TinhTrang = ? where ID = ?";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setString(1, t.getLoaiPhong());
         preparedStatement.setLong(2, t.getGiaPhong());
-        preparedStatement.setString(3, t.getTinhTrang());
-        preparedStatement.setBoolean(4, t.getActive());
-        preparedStatement.setLong(5, t.getID());
+        preparedStatement.setInt(3, t.getTinhTrang());
+        preparedStatement.setLong(4, t.getID());
         int rs = preparedStatement.executeUpdate();
         if (rs > 0) result = true;
         return result;
@@ -91,8 +89,7 @@ private MyConnection myConnection = new MyConnection();
 
 	@Override
 	public boolean delete(Phong t) throws SQLException {
-		t.setActive(false);
-		return update(t);
+		return false;
 	}
 
 }

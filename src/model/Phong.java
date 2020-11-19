@@ -4,25 +4,16 @@ public class Phong {
 	private Long ID;
     private String LoaiPhong;
     private Long GiaPhong;
-    private String TinhTrang = "";
-    private Boolean active = true;
+    private Integer TinhTrang = 0;
     
 	public Phong() {
 	}
 
-	public Phong(Long iD, String loaiPhong, Long giaPhong, String tinhTrang) {
+	public Phong(Long iD, String loaiPhong, Long giaPhong, Integer tinhTrang) {
 		ID = iD;
 		LoaiPhong = loaiPhong;
 		GiaPhong = giaPhong;
 		TinhTrang = tinhTrang;
-	}
-
-	public Phong(Long iD, String loaiPhong, Long giaPhong, String tinhTrang, Boolean active) {
-		ID = iD;
-		LoaiPhong = loaiPhong;
-		GiaPhong = giaPhong;
-		TinhTrang = tinhTrang;
-		this.active = active;
 	}
 
 	public Long getID() {
@@ -49,19 +40,11 @@ public class Phong {
 		GiaPhong = giaPhong;
 	}
 
-	public String getTinhTrang() {
+	public Integer getTinhTrang() {
 		return TinhTrang;
 	}
 
-	public void setTinhTrang(String tinhTrang) {
+	public void setTinhTrang(Integer tinhTrang) {
 		TinhTrang = tinhTrang;
-	}
-
-	public Boolean getActive() {
-		return active;
-	}
-
-	public void setActive(Boolean active) {
-		this.active = active;
 	}
 }
