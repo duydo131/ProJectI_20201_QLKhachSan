@@ -22,9 +22,8 @@ public class DangNhapDaoImpl implements DangNhapDao {
         DangNhap dangNhap = null;
         //sử dụng contructor full tham số để tạo ra đối tượng và lần lượt
         //truyền vào các giái trị thuộc tính tương ứng từ resultSet
-        dangNhap = new DangNhap(resultSet.getString("username"),
-                resultSet.getString("password"), resultSet.getString("ma_nv"),
-                resultSet.getInt("id"));
+        dangNhap = new DangNhap(resultSet.getString("User"),
+                resultSet.getString("Password"), resultSet.getLong("ID_NV"));
         //đối với các đối tượng có nhiều thuộc tính đê tránh nhầm trường
         //có thể tạo đối tượng bằng contructor mặc định và sử dụng các hàm set để
         //truyền giá trị cho đối tượng
@@ -49,7 +48,7 @@ public class DangNhapDaoImpl implements DangNhapDao {
         //select *(lấy tất cả các trường) from table(table là tên bảng muốn lấy dữ liệu)
         //where (điều kiện khi tìm kiếm cá bản ghi) deleted = false (tức chỉ lấy các bản ghi
         // chưa bị xóa)
-        String sql = "select * from dang_nhap";
+        String sql = "select * from login";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         return getList(preparedStatement.executeQuery());
     }
@@ -58,7 +57,7 @@ public class DangNhapDaoImpl implements DangNhapDao {
     public DangNhap findById(int id) throws SQLException {
         DangNhap dangNhap = null;
         //kiểm tra deleted trước id để tối ưu thời gian câu lệnh
-        String sql = "select * from dang_nhap;";
+        String sql = "select * from login where ID_NV = ?;";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -71,25 +70,26 @@ public class DangNhapDaoImpl implements DangNhapDao {
 
     public DangNhap insert(DangNhap dangNhap) throws SQLException {
         DangNhap newDangNhap = null;
-        String sql = "insert into dang_nhap (username, password, ma_nv) values (?,?,?);";
+        String sql = "insert into login (User, Password, ID_NV) values (?,?,?);";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setString(1, dangNhap.getUsername());
         preparedStatement.setString(2, dangNhap.getPassword());
-        preparedStatement.setString(3, dangNhap.getMaNV());
-        int rs = preparedStatement.executeUpdate();
+        preparedStatement.setLong(3, dangNhap.getMaNV());
+//        int rs = 
+        		preparedStatement.executeUpdate();
 
         //nếu insert thành công rs là số bản ghi mình vừa thay đổi dữ liệu
-        if (rs > 0){
-            //sử dụng hầm getGenerateKeys để trả về cho mình resultSet
-            // chứa id tương ứng với bản ghi vừa thêm vào;
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            //kiểm tra xem có kết quả result trả về hay không
-            if (resultSet.next()) {
-                //resultSet.getLong(số thứ tự cột) ở đây chỉ trả về 1 ô nên stt sẽ là 1
-                //getGeneratedKeys chứa kiểu trả về là long
-                newDangNhap = findById((int) resultSet.getLong(1));
-            }
-        }
+//        if (rs > 0){
+//            //sử dụng hầm getGenerateKeys để trả về cho mình resultSet
+//            // chứa id tương ứng với bản ghi vừa thêm vào;
+//            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+//            //kiểm tra xem có kết quả result trả về hay không
+//            if (resultSet.next()) {
+//                //resultSet.getLong(số thứ tự cột) ở đây chỉ trả về 1 ô nên stt sẽ là 1
+//                //getGeneratedKeys chứa kiểu trả về là long
+//                newDangNhap = findById((int) resultSet.getLong(1));
+//            }
+//        }
         return newDangNhap;
     }
 
@@ -97,7 +97,7 @@ public class DangNhapDaoImpl implements DangNhapDao {
     public boolean update(DangNhap dangNhap) throws SQLException {
         boolean result = false;
         //đổi mật khẩu
-        String sql = "update dang_nhap set password =? where username = ?;";
+        String sql = "update login set Password =? where User = ?;";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setString(1, dangNhap.getPassword());
         preparedStatement.setString(2, dangNhap.getUsername());
@@ -109,11 +109,21 @@ public class DangNhapDaoImpl implements DangNhapDao {
 
     public boolean delete(DangNhap dn) throws SQLException {
         boolean result = false;
-        String sql = "delete from dang_nhap where username = ? ;";
+        String sql = "delete from login where User = ? ;";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setString(1, dn.getUsername());
         int rs = preparedStatement.executeUpdate();
         if (rs > 0) result = true;
         return result;
     }
+
+
+	@Override
+	public DangNhap contains(String tenDangNhap) throws SQLException {
+		String sql = "Select * from login where User = ?";
+		PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
+		preparedStatement.setString(1, tenDangNhap);
+		List<DangNhap> list = getList(preparedStatement.executeQuery());
+		return list.isEmpty() ? null : list.get(0);
+	}
 }

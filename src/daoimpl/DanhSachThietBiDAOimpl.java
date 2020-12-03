@@ -76,7 +76,7 @@ public class DanhSachThietBiDAOimpl implements DanhSachThietBiDAO{
 	@Override
 	public DanhSachThietBi insert(DanhSachThietBi t) throws SQLException {
 		DanhSachThietBi tb = null;
-        String sql = "insert into danhSachThietBi (ID_P,, ID_TB, SoLuong) values (?,?,?);";
+        String sql = "insert into danhSachThietBi (ID_P, ID_TB, SoLuong) values (?,?,?);";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setLong(1, t.getID_P());
         preparedStatement.setLong(2, t.getID_TB());

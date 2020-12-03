@@ -41,7 +41,7 @@ public class KhachHangDaoImpl implements KhachHangDao {
     }
 
     public List<KhachHang> findAll() throws SQLException {
-        String sql = "selete * from khachHang where active = true";
+        String sql = "select * from khachHang where active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
         return  getList(preparedStatement.executeQuery());
     }

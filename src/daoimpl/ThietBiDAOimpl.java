@@ -9,6 +9,8 @@ import java.util.List;
 import dao.ThietBiDAO;
 import model.MyConnection;
 import model.ThietBi;
+import model.add.DeviceRoom;
+import model.add.DeviceRoomMapper;
 
 public class ThietBiDAOimpl implements ThietBiDAO{
 	private MyConnection myConnection = new MyConnection();
@@ -92,4 +94,15 @@ public class ThietBiDAOimpl implements ThietBiDAO{
 		return update(t);
 	}
 
+	@Override
+	public List<DeviceRoom> getDeviceByIdRoom(Long id) throws SQLException {
+		StringBuilder sql = new StringBuilder("select * from danhsachthietbi ds inner join thietbi tb on ds.ID_TB = tb.ID where ds.ID_P = ?");
+		PreparedStatement preparedStatement = myConnection.prepare(sql.toString());
+		preparedStatement.setLong(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        DeviceRoomMapper mapper = new DeviceRoomMapper();
+        return mapper.getList(resultSet);
+	}
+
 }
+

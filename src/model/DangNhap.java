@@ -3,26 +3,16 @@ package model;
 public class DangNhap {
     private String username;
     private String password;
-    private String maNV;
-    private int id;
+    private Long maNV;
 
     public DangNhap() {
     }
     
-    public DangNhap(String username, String password, String maNV, int id) {
+    public DangNhap(String username, String password, Long maNV) {
 		this.username = username;
 		this.password = password;
 		this.maNV = maNV;
-		this.id = id;
 	}
-
-	public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
 	public String getPassword() {
         return password;
@@ -32,11 +22,11 @@ public class DangNhap {
         this.password = password;
     }
 
-    public String getMaNV() {
+    public Long getMaNV() {
         return maNV;
     }
 
-    public void setMaNV(String maNV) {
+    public void setMaNV(Long maNV) {
         this.maNV = maNV;
     }
 

@@ -18,6 +18,10 @@ public class ChiTietThuePhongDAOimpl implements ChiTietThuePhongDAO{
 		ChiTietThuePhong tb = new ChiTietThuePhong();
 		tb.setID(resultSet.getLong("ID"));
 		tb.setID_P(resultSet.getLong("ID_P"));
+		tb.setGhiChu(resultSet.getString("GhiChu"));
+		tb.setNgayTraPhong(resultSet.getDate("NgayTraPhong"));
+		tb.setTienPhat(resultSet.getLong("TienPhat"));
+		tb.setTrangThai(resultSet.getString("TrangThai"));
 		tb.setActive(resultSet.getBoolean("active"));
 		return tb;
 	}
@@ -56,7 +60,7 @@ public class ChiTietThuePhongDAOimpl implements ChiTietThuePhongDAO{
 	@Override
 	public ChiTietThuePhong insert(ChiTietThuePhong t) throws SQLException {
 		ChiTietThuePhong tb = null;
-        String sql = "insert into chiTietThuePhong (ID_P) values (?);";
+        String sql = "insert into chiTietThuePhong (ID_P, GhiChu, NgayTraPhong, TienPhat, TrangThai) values (?, ?, ?, ?, ?);";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setLong(1, t.getID_P());
         int rs = preparedStatement.executeUpdate();
@@ -73,8 +77,9 @@ public class ChiTietThuePhongDAOimpl implements ChiTietThuePhongDAO{
 	@Override
 	public boolean update(ChiTietThuePhong t) throws SQLException {
 		boolean result = false;
-        String sql = "update chiTietThuePhong set ID_P = ?, active = ? where ID = ?;";
-        PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
+        StringBuilder sql = new StringBuilder("update chiTietThuePhong set ID_P = ?, GhiChu = ?, NgayTraPhong = ?, TienPhat = ?, ");
+        sql.append("TrangThai = ?, active = ? where ID = ?;");
+        PreparedStatement preparedStatement = myConnection.prepareUpdate(sql.toString());
         preparedStatement.setLong(1, t.getID_P());
         preparedStatement.setBoolean(2, t.getActive());
         preparedStatement.setLong(3, t.getID());
