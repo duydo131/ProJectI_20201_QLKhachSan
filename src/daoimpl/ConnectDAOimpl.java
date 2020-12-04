@@ -37,7 +37,7 @@ public class ConnectDAOimpl implements ConnectDAO{
 	}
 
 	@Override
-	public Connect findById(int id) throws SQLException {
+	public Connect findById(Long id) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

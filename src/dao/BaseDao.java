@@ -22,7 +22,7 @@ public interface BaseDao<T> {
 
     List<T> findAll() throws SQLException;
 
-    T findById(int id) throws SQLException;
+    T findById(Long id) throws SQLException;
 
     T insert(T t) throws SQLException;
 

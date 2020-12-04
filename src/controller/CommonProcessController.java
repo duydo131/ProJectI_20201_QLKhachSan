@@ -1,13 +1,17 @@
 package controller;
 
+import java.sql.SQLException;
+
+import dao.NhanVienDAO;
+import daoimpl.NhanVienDAOimpl;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import model.NhanVien;
 
 public class CommonProcessController {
 	private static CommonProcessController instance;
 	private Pane footer;
 	private Pane content;
-	private Stage stage;
+	private NhanVien nv;;
 
 	private CommonProcessController() {}
 	
@@ -34,11 +38,21 @@ public class CommonProcessController {
 		this.content = content;
 	}
 	
-	public Stage getStage() {
-		return stage;
+	public NhanVien getNv() {
+		return nv;
 	}
 
-	public void setStage(Stage stage) {
-		this.stage = stage;
+	public void setNv(Long id) {
+		NhanVienDAO nvDAO = new NhanVienDAOimpl();
+		try {
+			this.nv = nvDAO.findById(id);
+			
+		} catch (SQLException e) {
+		}
+		
+	}
+
+	public static void clear() {
+		instance = null;
 	}
 }

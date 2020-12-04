@@ -46,11 +46,11 @@ public class KhachHangDaoImpl implements KhachHangDao {
         return  getList(preparedStatement.executeQuery());
     }
 
-    public KhachHang findById(int id) throws SQLException {
+    public KhachHang findById(Long id) throws SQLException {
     	KhachHang tb = null;
         String sql = "select * from khachHang where ID = ? and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
-        preparedStatement.setInt(1, id);
+        preparedStatement.setLong(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             tb = getObject(resultSet);
@@ -78,7 +78,7 @@ public class KhachHangDaoImpl implements KhachHangDao {
         if (rs > 0){
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
-                tb = findById((int) resultSet.getLong(1));
+                tb = findById((Long) resultSet.getLong(1));
             }
         }
         return tb;

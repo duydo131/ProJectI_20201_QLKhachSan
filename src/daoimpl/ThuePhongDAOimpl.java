@@ -47,11 +47,11 @@ public class ThuePhongDAOimpl implements ThuePhongDAO{
 	}
 
 	@Override
-	public ThuePhong findById(int id) throws SQLException {
+	public ThuePhong findById(Long id) throws SQLException {
 		ThuePhong tb = null;
         String sql = "select * from thuePhong where ID = ? and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
-        preparedStatement.setInt(1, id);
+        preparedStatement.setLong(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             tb = getObject(resultSet);
@@ -75,7 +75,7 @@ public class ThuePhongDAOimpl implements ThuePhongDAO{
         if (rs > 0){
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
-                tb = findById((int) resultSet.getLong(1));
+                tb = findById((Long) resultSet.getLong(1));
             }
         }
         return tb;

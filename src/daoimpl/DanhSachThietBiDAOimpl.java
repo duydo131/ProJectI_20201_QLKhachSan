@@ -41,7 +41,7 @@ public class DanhSachThietBiDAOimpl implements DanhSachThietBiDAO{
 	}
 
 	@Override
-	public DanhSachThietBi findById(int id) throws SQLException {
+	public DanhSachThietBi findById(Long id) throws SQLException {
 		return null;
 	}
 
@@ -86,7 +86,7 @@ public class DanhSachThietBiDAOimpl implements DanhSachThietBiDAO{
         if (rs > 0){
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
-                tb = findById((int) resultSet.getLong(1));
+                tb = findById((Long) resultSet.getLong(1));
             }
         }
         return tb;

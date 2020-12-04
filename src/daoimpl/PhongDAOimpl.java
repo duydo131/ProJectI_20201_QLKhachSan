@@ -11,7 +11,8 @@ import model.MyConnection;
 import model.Phong;
 
 public class PhongDAOimpl implements PhongDAO{
-private MyConnection myConnection = new MyConnection();
+	
+	private MyConnection myConnection = new MyConnection();
 	
 	@Override
 	public Phong getObject(ResultSet resultSet) throws SQLException {
@@ -20,6 +21,7 @@ private MyConnection myConnection = new MyConnection();
 		tb.setLoaiPhong(resultSet.getString("LoaiPhong"));
 		tb.setGiaPhong(resultSet.getLong("GiaPhong"));
 		tb.setTinhTrang(resultSet.getInt("TinhTrang"));
+		tb.setTenPhong(resultSet.getString("TenPhong"));
 		return tb;
 	}
 
@@ -42,11 +44,11 @@ private MyConnection myConnection = new MyConnection();
 	}
 
 	@Override
-	public Phong findById(int id) throws SQLException {
+	public Phong findById(Long id) throws SQLException {
 		Phong tb = null;
         String sql = "select * from phong where ID = ? ";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
-        preparedStatement.setInt(1, id);
+        preparedStatement.setLong(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             tb = getObject(resultSet);
@@ -57,17 +59,18 @@ private MyConnection myConnection = new MyConnection();
 	@Override
 	public Phong insert(Phong t) throws SQLException {
 		Phong tb = null;
-        String sql = "insert into phong (LoaiPhong, GiaPhong, TinhTrang) values (?,?,?);";
+        String sql = "insert into phong (LoaiPhong, GiaPhong, TinhTrang, TenPhong) values (?,?,?,?);";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setString(1, t.getLoaiPhong());
         preparedStatement.setLong(2, t.getGiaPhong());
         preparedStatement.setInt(3, t.getTinhTrang());
+        preparedStatement.setString(4, t.getTenPhong());
         int rs = preparedStatement.executeUpdate();
 
         if (rs > 0){
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
-                tb = findById((int) resultSet.getLong(1));
+                tb = findById((Long) resultSet.getLong(1));
             }
         }
         return tb;
@@ -76,12 +79,13 @@ private MyConnection myConnection = new MyConnection();
 	@Override
 	public boolean update(Phong t) throws SQLException {
 		boolean result = false;
-        String sql = "update phong set LoaiPhong = ?, GiaPhong = ?, TinhTrang = ? where ID = ?";
+        String sql = "update phong set LoaiPhong = ?, GiaPhong = ?, TinhTrang = ?, TenPhong = ? where ID = ?";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setString(1, t.getLoaiPhong());
         preparedStatement.setLong(2, t.getGiaPhong());
         preparedStatement.setInt(3, t.getTinhTrang());
-        preparedStatement.setLong(4, t.getID());
+        preparedStatement.setString(4, t.getTenPhong());
+        preparedStatement.setLong(5, t.getID());
         int rs = preparedStatement.executeUpdate();
         if (rs > 0) result = true;
         return result;
@@ -90,6 +94,14 @@ private MyConnection myConnection = new MyConnection();
 	@Override
 	public boolean delete(Phong t) throws SQLException {
 		return false;
+	}
+
+	@Override
+	public List<Phong> findAllEmptyRoom() throws SQLException {
+		String sql = "select * from phong where TinhTrang = 0";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return getList(resultSet);
 	}
 
 }

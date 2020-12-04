@@ -28,25 +28,10 @@ public class MainController implements Initializable{
 		Parent root2 = null;
 		
 		try {
-//			root1 = FXMLLoader.load(this.getClass().getResource("/view/HeaderLoginLayout.fxml"));
-//			header.getChildren().add(root1);
-//			root2 = FXMLLoader.load(this.getClass().getResource("/view/HomeLayout.fxml"));
-//			content.getChildren().add(root2);
-			
-			root1 = FXMLLoader.load(this.getClass().getResource("/view/HeaderLogoutLayout.fxml"));
+			root1 = FXMLLoader.load(this.getClass().getResource("/view/HeaderLoginLayout.fxml"));
 			header.getChildren().add(root1);
-			root2 = FXMLLoader.load(this.getClass().getResource("/view/ProcessLayout.fxml"));
+			root2 = FXMLLoader.load(this.getClass().getResource("/view/HomeLayout.fxml"));
 			content.getChildren().add(root2);
-			
-			
-//			root2 = FXMLLoader.load(this.getClass().getResource("/view/ListCustomerLayout.fxml"));
-//			content.getChildren().add(root2);
-//			root2 = FXMLLoader.load(this.getClass().getResource("/view/ListStaffLayout.fxml"));
-//			content.getChildren().add(root2);
-//			root2 = FXMLLoader.load(this.getClass().getResource("/view/RoomLayout.fxml"));
-//			content.getChildren().add(root2);
-//			root2 = FXMLLoader.load(this.getClass().getResource("/view/DeviceLayout.fxml"));
-//			content.getChildren().add(root2);
 		} catch (IOException e) {
 		}
 	}

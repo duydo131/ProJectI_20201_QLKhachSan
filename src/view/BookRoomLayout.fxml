@@ -62,7 +62,8 @@
             <Label layoutX="219.0" layoutY="86.0" prefHeight="23.0" prefWidth="155.0" text="Thông tin các phòng đã đặt" />
             <TextArea fx:id="moTa" layoutX="14.0" layoutY="146.0" prefHeight="85.0" prefWidth="168.0" />
             <Label layoutX="19.0" layoutY="125.0" text="Mô tả phòng" />
-            <Button fx:id="add" layoutX="130.0" layoutY="231.0" mnemonicParsing="false" text="Thêm" />
+            <Button fx:id="add" layoutX="87.0" layoutY="231.0" mnemonicParsing="false" text="Thêm" />
+            <Button fx:id="remove" layoutX="136.0" layoutY="231.0" mnemonicParsing="false" text="Xóa" />
          </children>
       </AnchorPane>
       <Button fx:id="book" layoutX="654.0" layoutY="508.0" mnemonicParsing="false" text="Đăt Phòng" />

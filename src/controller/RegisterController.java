@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -14,11 +15,14 @@ import daoimpl.NhanVienDAOimpl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import model.DangNhap;
 import model.NhanVien;
 
@@ -157,6 +161,7 @@ public class RegisterController implements Initializable{
 								dn.setMaNV(id);
 								
 								loginDAO.insert(dn);
+								Redirect();
 							}else {
 								inMK2.setText("Mật khẩu không trùng nhau");
 							}
@@ -170,5 +175,30 @@ public class RegisterController implements Initializable{
 			}
 		});
 	}
-
+	
+	private void Redirect() {
+		CommonController commonController = CommonController.getInstance();
+		Pane header = commonController.getFooter();
+		Pane content = commonController.getContent();
+		
+		Parent root1 = null;
+		Parent root2 = null;
+		
+		try {
+			clear();
+			root1 = FXMLLoader.load(this.getClass().getResource("/view/HeaderLogoutLayout.fxml"));
+			header.getChildren().add(root1);
+			root2 = FXMLLoader.load(this.getClass().getResource("/view/ProcessLayout.fxml"));
+			content.getChildren().add(root2);
+		} catch (IOException e) {
+		}
+	}
+	
+	private void clear() throws IOException {
+		CommonController commonController = CommonController.getInstance();
+		Pane content = commonController.getContent();
+		content.getChildren().clear();
+		Pane header = commonController.getFooter();
+		header.getChildren().clear();
+	}
 }

@@ -47,11 +47,11 @@ public class NhanVienDAOimpl implements NhanVienDAO{
 	}
 
 	@Override
-	public NhanVien findById(int id) throws SQLException {
+	public NhanVien findById(Long id) throws SQLException {
 		NhanVien tb = null;
         String sql = "select * from nhanVien where ID = ? and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
-        preparedStatement.setInt(1, id);
+        preparedStatement.setLong(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             tb = getObject(resultSet);
@@ -75,7 +75,7 @@ public class NhanVienDAOimpl implements NhanVienDAO{
         if (rs > 0){
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
-                tb = findById((int) resultSet.getLong(1));
+                tb = findById((Long) resultSet.getLong(1));
             }
         }
         return tb;

@@ -44,11 +44,11 @@ public class ThietBiDAOimpl implements ThietBiDAO{
 	}
 
 	@Override
-	public ThietBi findById(int id) throws SQLException {
+	public ThietBi findById(Long id) throws SQLException {
 		ThietBi tb = null;
         String sql = "select * from thietbi where ID = ? and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
-        preparedStatement.setInt(1, id);
+        preparedStatement.setLong(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             tb = getObject(resultSet);
@@ -68,7 +68,7 @@ public class ThietBiDAOimpl implements ThietBiDAO{
         if (rs > 0){
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
-                tb = findById((int) resultSet.getLong(1));
+                tb = findById((Long) resultSet.getLong(1));
             }
         }
         return tb;

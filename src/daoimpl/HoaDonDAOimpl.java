@@ -45,11 +45,11 @@ public class HoaDonDAOimpl implements HoaDonDAO{
 	}
 
 	@Override
-	public HoaDon findById(int id) throws SQLException {
+	public HoaDon findById(Long id) throws SQLException {
 		HoaDon tb = null;
         String sql = "select * from hoaDon where ID = ? and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
-        preparedStatement.setInt(1, id);
+        preparedStatement.setLong(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             tb = getObject(resultSet);
@@ -71,7 +71,7 @@ public class HoaDonDAOimpl implements HoaDonDAO{
         if (rs > 0){
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
-                tb = findById((int) resultSet.getLong(1));
+                tb = findById((Long) resultSet.getLong(1));
             }
         }
         return tb;

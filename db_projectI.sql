@@ -58,7 +58,8 @@ create table phong(
 	ID bigint primary key auto_increment,
     LoaiPhong char(5),
     GiaPhong bigint not null,
-    TinhTrang int default 0
+    TinhTrang int default 0,
+    TenPhong nvarchar(255) not null
 );
 
 create table nhanVien(

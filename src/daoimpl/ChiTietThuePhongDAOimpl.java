@@ -45,11 +45,11 @@ public class ChiTietThuePhongDAOimpl implements ChiTietThuePhongDAO{
 	}
 
 	@Override
-	public ChiTietThuePhong findById(int id) throws SQLException {
+	public ChiTietThuePhong findById(Long id) throws SQLException {
 		ChiTietThuePhong tb = null;
         String sql = "select * from chiTietThuePhong where ID = ? and active = true";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
-        preparedStatement.setInt(1, id);
+        preparedStatement.setLong(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             tb = getObject(resultSet);
@@ -68,7 +68,7 @@ public class ChiTietThuePhongDAOimpl implements ChiTietThuePhongDAO{
         if (rs > 0){
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
-                tb = findById((int) resultSet.getLong(1));
+                tb = findById((Long) resultSet.getLong(1));
             }
         }
         return tb;

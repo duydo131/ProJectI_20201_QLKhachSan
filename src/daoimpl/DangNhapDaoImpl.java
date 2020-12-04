@@ -54,12 +54,12 @@ public class DangNhapDaoImpl implements DangNhapDao {
     }
 
 
-    public DangNhap findById(int id) throws SQLException {
+    public DangNhap findById(Long id) throws SQLException {
         DangNhap dangNhap = null;
         //kiểm tra deleted trước id để tối ưu thời gian câu lệnh
         String sql = "select * from login where ID_NV = ?;";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
-        preparedStatement.setInt(1, id);
+        preparedStatement.setLong(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         //kiểm tra xem có bản ghi hay không nếu có sử dụng hàm getObject để lấy ra đối tượng.
         if (resultSet.next()) {
