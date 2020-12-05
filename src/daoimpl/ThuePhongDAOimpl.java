@@ -1,6 +1,6 @@
 package daoimpl;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,13 +18,11 @@ public class ThuePhongDAOimpl implements ThuePhongDAO{
 	public ThuePhong getObject(ResultSet resultSet) throws SQLException {
 		ThuePhong tb = new ThuePhong();
 		tb.setID(resultSet.getLong("ID"));
-		tb.setID_KH(resultSet.getLong("TD_KH"));
+		tb.setID_KH(resultSet.getLong("ID_KH"));
 		tb.setNgayDangKi(resultSet.getDate("NgayDangKi"));
 		tb.setNgayDen(resultSet.getDate("NgayDen"));
-		tb.setNgayDi(resultSet.getDate("NgayDi"));
-		tb.setNgayHenDi(resultSet.getDate("NgayHenDi"));
-		tb.setTienCoc(resultSet.getLong("TienCoc"));
 		tb.setActive(resultSet.getBoolean("active"));
+		tb.setID_NV_choThue(resultSet.getLong("ID_NV_choThue"));
 		return tb;
 	}
 
@@ -62,14 +60,12 @@ public class ThuePhongDAOimpl implements ThuePhongDAO{
 	@Override
 	public ThuePhong insert(ThuePhong t) throws SQLException {
 		ThuePhong tb = null;
-        String sql = "insert into thuePhong (ID_KH, NgayDangKi, NgayDen, NgayHenDi, NgayDi, TienCoc) values (?,?,?,?,?,?);";
+        String sql = "insert into thuePhong (ID_KH, NgayDangKi, NgayDen, ID_NV_choThue) values (?,?,?,?);";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setLong(1, t.getID_KH());
         preparedStatement.setDate(2, new java.sql.Date(((Date)t.getNgayDangKi()).getTime()));
         preparedStatement.setDate(3, new java.sql.Date(((Date)t.getNgayDen()).getTime()));
-        preparedStatement.setDate(4, new java.sql.Date(((Date)t.getNgayHenDi()).getTime()));
-        preparedStatement.setDate(5, new java.sql.Date(((Date)t.getNgayDi()).getTime()));
-        preparedStatement.setLong(6, t.getTienCoc());
+        preparedStatement.setLong(4, t.getID_NV_choThue());
         int rs = preparedStatement.executeUpdate();
 
         if (rs > 0){
@@ -84,17 +80,15 @@ public class ThuePhongDAOimpl implements ThuePhongDAO{
 	@Override
 	public boolean update(ThuePhong t) throws SQLException {
 		boolean result = false;
-        String sql = "update thuePhong set ID_KH = ?, NgayDangKi = ?, NgayDen = ?, NgayHenDi = ?, "
-        		+ "NgayDi = ?, TienCoc = ?, active = ? where ID = ?;";
+        String sql = "update thuePhong set ID_KH = ?, NgayDangKi = ?, NgayDen = ?, ID_NV_choThue = ? "
+        		+ "active = ? where ID = ?;";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setLong(1, t.getID_KH());
         preparedStatement.setDate(2, new java.sql.Date(((Date)t.getNgayDangKi()).getTime()));
         preparedStatement.setDate(3, new java.sql.Date(((Date)t.getNgayDen()).getTime()));
-        preparedStatement.setDate(4, new java.sql.Date(((Date)t.getNgayHenDi()).getTime()));
-        preparedStatement.setDate(5, new java.sql.Date(((Date)t.getNgayDi()).getTime()));
-        preparedStatement.setLong(6, t.getTienCoc());
-        preparedStatement.setBoolean(7,  t.getActive());
-        preparedStatement.setLong(8, t.getID());
+        preparedStatement.setLong(4, t.getID_NV_choThue());
+        preparedStatement.setBoolean(5,  t.getActive());
+        preparedStatement.setLong(6, t.getID());
         int rs = preparedStatement.executeUpdate();
         if (rs > 0) result = true;
         return result;

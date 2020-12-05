@@ -48,9 +48,7 @@ create table thuePhong(
 	ID_KH bigint not null,
 	NgayDangKi datetime not null,
 	NgayDen datetime not null,
-	NgayHenDi datetime not null,
-	NgayDi datetime,
-	TienCoc bigint default 0,
+    ID_NV_choThue bigint,
     active boolean default true
 );
 
@@ -76,10 +74,13 @@ create table nhanVien(
 create table chiTietThuePhong(
 	ID bigint primary key auto_increment,
     ID_P bigint not null,
-	NgayTraPhong date,
 	TrangThai Nvarchar(255),
 	TienPhat bigint,
+    NgayDi date,
+    NgayHenDi date,
+    TienCoc bigint default 0,
 	GhiChu nvarchar(255),
+    ID_NV_thanhToan bigint,
     active boolean default true
 );
 
@@ -88,6 +89,8 @@ create table connect(
     ID_chiTiet bigint not null
 ); 
 
+alter table thuePhong add constraint NVThue foreign key (ID_NV_choThue) references nhanVien(ID);
+alter table chiTietThuePhong add constraint NVThanhToan foreign key (ID_NV_thanhToan) references nhanVien(ID);
 alter table login add constraint login_NV foreign key (ID_NV) references nhanVien(ID);
 alter table danhSachThietBi add constraint ds_TB foreign key (ID_TB) references thietbi(ID);
 alter table danhSachThietBi add constraint ds_P foreign key (ID_P) references phong(ID);

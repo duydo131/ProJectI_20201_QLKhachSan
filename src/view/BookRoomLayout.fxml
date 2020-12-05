@@ -30,12 +30,12 @@
             <TextField fx:id="ngheKH" layoutX="357.0" layoutY="169.0" prefHeight="25.0" prefWidth="135.0" />
             <ComboBox fx:id="gioiTinhKH" layoutX="121.0" layoutY="124.0" prefHeight="25.0" prefWidth="135.0" />
             <ComboBox fx:id="phanloaiKH" layoutX="556.0" layoutY="60.0" prefHeight="25.0" prefWidth="135.0" />
-            <Label fx:id="inTenKH" layoutX="121.0" layoutY="55.0" text="Label" />
-            <Label fx:id="inQuocTich" layoutX="121.0" layoutY="194.0" text="Label" />
-            <Label fx:id="inCMNDKH" layoutX="357.0" layoutY="149.0" text="Label" />
-            <Label fx:id="inDiaChiKH" layoutX="121.0" layoutY="103.0" text="Label" />
-            <Label fx:id="inDienThoaiKH" layoutX="357.0" layoutY="103.0" text="Label" />
-            <Label fx:id="inNgaySinhKH" layoutX="357.0" layoutY="55.0" text="Label" />
+            <Label fx:id="inTenKH" layoutX="121.0" layoutY="55.0" text="" />
+            <Label fx:id="inQuocTich" layoutX="121.0" layoutY="194.0" text="" />
+            <Label fx:id="inCMNDKH" layoutX="357.0" layoutY="149.0" text="" />
+            <Label fx:id="inDiaChiKH" layoutX="121.0" layoutY="103.0" text="" />
+            <Label fx:id="inDienThoaiKH" layoutX="357.0" layoutY="103.0" text="" />
+            <Label fx:id="inNgaySinhKH" layoutX="357.0" layoutY="55.0" text="" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="-4.0" layoutY="241.0" prefHeight="267.0" prefWidth="786.0">
@@ -47,8 +47,8 @@
             <Label layoutX="269.0" layoutY="35.0" text="Ngày đăng kí" />
             <Label layoutX="531.0" layoutY="35.0" text="Ngày đến" />
             <TextField fx:id="ngayDen" layoutX="609.0" layoutY="31.0" prefHeight="25.0" prefWidth="120.0" promptText="dd/MM/yyyy" />
-            <Label fx:id="inNgayDangKi" layoutX="353.0" layoutY="56.0" text="Label" />
-            <Label fx:id="inNgayDen" layoutX="609.0" layoutY="56.0" text="Label" />
+            <Label fx:id="inNgayDangKi" layoutX="353.0" layoutY="56.0" text="" />
+            <Label fx:id="inNgayDen" layoutX="609.0" layoutY="56.0" text="" />
             <Label layoutX="19.0" layoutY="97.0" text="Phòng" />
             <ComboBox fx:id="phong" layoutX="77.0" layoutY="93.0" prefHeight="25.0" prefWidth="96.0" />
             <TableView fx:id="table" layoutX="219.0" layoutY="118.0" prefHeight="141.0" prefWidth="509.0">
@@ -64,6 +64,7 @@
             <Label layoutX="19.0" layoutY="125.0" text="Mô tả phòng" />
             <Button fx:id="add" layoutX="87.0" layoutY="231.0" mnemonicParsing="false" text="Thêm" />
             <Button fx:id="remove" layoutX="136.0" layoutY="231.0" mnemonicParsing="false" text="Xóa" />
+            <Label fx:id="inNgayDi" layoutX="728.0" layoutY="146.0" />
          </children>
       </AnchorPane>
       <Button fx:id="book" layoutX="654.0" layoutY="508.0" mnemonicParsing="false" text="Đăt Phòng" />

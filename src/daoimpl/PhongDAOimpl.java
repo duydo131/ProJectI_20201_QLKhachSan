@@ -104,4 +104,16 @@ public class PhongDAOimpl implements PhongDAO{
         return getList(resultSet);
 	}
 
+	@Override
+	public boolean updateStatus(Phong t) throws SQLException {
+		boolean result = false;
+        String sql = "update phong set TinhTrang = ? where ID = ?";
+        PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
+        preparedStatement.setInt(1, t.getTinhTrang());
+        preparedStatement.setLong(2, t.getID());
+        int rs = preparedStatement.executeUpdate();
+        if (rs > 0) result = true;
+        return result;
+	}
+
 }

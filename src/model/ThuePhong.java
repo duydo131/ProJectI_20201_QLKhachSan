@@ -7,34 +7,27 @@ public class ThuePhong {
 	private Long ID_KH;
 	private Date NgayDangKi;
 	private Date NgayDen;
-	private Date NgayHenDi;
-	private Date NgayDi;
-	private Long TienCoc;
+	private Long ID_NV_choThue;
 	private Boolean active = true;
 
 	public ThuePhong() {
 	}
 	
-	public ThuePhong(Long iD, Long iD_KH, Date ngayDangKi, Date ngayDen, Date ngayHenDi, Date ngayDi, Long tienCoc) {
+	public ThuePhong(Long iD, Long iD_KH, Date ngayDangKi, Date ngayDen, Long ID_NV_choThue) {
 		ID = iD;
 		ID_KH = iD_KH;
 		NgayDangKi = ngayDangKi;
 		NgayDen = ngayDen;
-		NgayHenDi = ngayHenDi;
-		NgayDi = ngayDi;
-		TienCoc = tienCoc;
+		this.ID_NV_choThue = ID_NV_choThue;
 	}
 
-	public ThuePhong(Long iD, Long iD_KH, Date ngayDangKi, Date ngayDen, Date ngayHenDi, Date ngayDi, Long tienCoc,
-			Boolean active) {
+	public ThuePhong(Long iD, Long iD_KH, Date ngayDangKi, Date ngayDen, Boolean active, Long ID_NV_choThue) {
 		ID = iD;
 		ID_KH = iD_KH;
 		NgayDangKi = ngayDangKi;
 		NgayDen = ngayDen;
-		NgayHenDi = ngayHenDi;
-		NgayDi = ngayDi;
-		TienCoc = tienCoc;
 		this.active = active;
+		this.ID_NV_choThue = ID_NV_choThue;
 	}
 
 	public Long getID() {
@@ -69,35 +62,19 @@ public class ThuePhong {
 		NgayDen = ngayDen;
 	}
 
-	public Date getNgayHenDi() {
-		return NgayHenDi;
-	}
-
-	public void setNgayHenDi(Date ngayHenDi) {
-		NgayHenDi = ngayHenDi;
-	}
-
-	public Date getNgayDi() {
-		return NgayDi;
-	}
-
-	public void setNgayDi(Date ngayDi) {
-		NgayDi = ngayDi;
-	}
-
-	public Long getTienCoc() {
-		return TienCoc;
-	}
-
-	public void setTienCoc(Long tienCoc) {
-		TienCoc = tienCoc;
-	}
-
 	public Boolean getActive() {
 		return active;
 	}
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public Long getID_NV_choThue() {
+		return ID_NV_choThue;
+	}
+
+	public void setID_NV_choThue(Long iD_NV_choThue) {
+		ID_NV_choThue = iD_NV_choThue;
 	}
 }

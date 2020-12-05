@@ -1,5 +1,6 @@
 package daoimpl;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -44,7 +45,11 @@ public class ConnectDAOimpl implements ConnectDAO{
 
 	@Override
 	public Connect insert(Connect t) throws SQLException {
-		// TODO Auto-generated method stub
+        String sql = "insert into connect (ID_TP, ID_chiTiet) values (?,?);";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        preparedStatement.setLong(1, t.getID_TP());
+        preparedStatement.setLong(2, t.getID_chiTiet());
+        preparedStatement.executeUpdate();
 		return null;
 	}
 

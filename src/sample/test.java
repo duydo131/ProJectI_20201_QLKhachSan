@@ -1,6 +1,8 @@
 package sample;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,29 +10,94 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import dao.ChiTietThuePhongDAO;
+import dao.ConnectDAO;
 import dao.DanhSachThietBiDAO;
 import dao.KhachHangDao;
 import dao.NhanVienDAO;
 import dao.PhongDAO;
 import dao.ThietBiDAO;
+import dao.ThuePhongDAO;
+import daoimpl.ChiTietThuePhongDAOimpl;
+import daoimpl.ConnectDAOimpl;
 import daoimpl.DanhSachThietBiDAOimpl;
 import daoimpl.KhachHangDaoImpl;
 import daoimpl.NhanVienDAOimpl;
 import daoimpl.PhongDAOimpl;
 import daoimpl.ThietBiDAOimpl;
+import daoimpl.ThuePhongDAOimpl;
+import model.ChiTietThuePhong;
+import model.Connect;
 import model.DanhSachThietBi;
 import model.KhachHang;
 import model.NhanVien;
 import model.Phong;
 import model.ThietBi;
+import model.ThuePhong;
 import model.add.DeviceRoom;
 
 import sample.Room;
+
+
 
 public class test {
 	public static void main(String[] args) throws SQLException {
 
 		Date date = new Date();
+		
+//		PhongDAO pDAO = new PhongDAOimpl();
+//		Phong p = new Phong();
+//		p.setID(1L);
+//		p.setTinhTrang(1);
+//		
+//		pDAO.updateStatus(p);
+		
+//		ConnectDAO cDAO = new ConnectDAOimpl();
+//		
+//		Connect c1 = new Connect(1L, 1L);
+//		Connect c2 = new Connect(1L, 2L);
+//		Connect c3 = new Connect(1L, 3L);
+//		Connect c4 = new Connect(2L, 4L);
+//		Connect c5 = new Connect(2L, 5L);
+//		Connect c6 = new Connect(3L, 6L);
+//		Connect c7 = new Connect(3L, 7L);
+//		
+//		cDAO.insert(c1);
+//		cDAO.insert(c2);
+//		cDAO.insert(c3);
+//		cDAO.insert(c4);
+//		cDAO.insert(c5);
+//		cDAO.insert(c6);
+//		cDAO.insert(c7);
+		
+//		ThuePhongDAO tpDAO = new ThuePhongDAOimpl();
+//		
+//		ThuePhong tp1 = new ThuePhong(1L, 1L, date, date);
+//		ThuePhong tp2 = new ThuePhong(2L, 2L, date, date);
+//		ThuePhong tp3 = new ThuePhong(3L, 3L, date, date);
+//		
+//		tpDAO.insert(tp1);
+//		tpDAO.insert(tp2);
+//		tpDAO.insert(tp3);
+		
+		
+//		ChiTietThuePhongDAO cttp = new ChiTietThuePhongDAOimpl();
+//		
+//		ChiTietThuePhong ct1 = new ChiTietThuePhong(1L, 1L, "tt1", 1L, "gc1", date, date, 2L);
+//		ChiTietThuePhong ct2 = new ChiTietThuePhong(2L, 2L, "tt2", 1L, "gc1", date, date, 2L);
+//		ChiTietThuePhong ct3 = new ChiTietThuePhong(3L, 3L, "tt3", 1L, "gc1", date, date, 2L);
+//		ChiTietThuePhong ct4 = new ChiTietThuePhong(4L, 4L, "tt4", 1L, "gc1", date, date, 2L);
+//		ChiTietThuePhong ct5 = new ChiTietThuePhong(5L, 5L, "tt5", 1L, "gc1", date, date, 2L);
+//		ChiTietThuePhong ct6 = new ChiTietThuePhong(6L, 6L, "tt6", 1L, "gc1", date, date, 2L);
+//		ChiTietThuePhong ct7 = new ChiTietThuePhong(7L, 7L, "tt7", 1L, "gc1", date, date, 2L);
+//		
+//		cttp.insert(ct1);
+//		cttp.insert(ct2);
+//		cttp.insert(ct3);
+//		cttp.insert(ct4);
+//		cttp.insert(ct5);
+//		cttp.insert(ct6);
+//		cttp.insert(ct7);
 		
 //		KhachHangDao khDAO = new KhachHangDaoImpl();
 //		KhachHang kh1 = new KhachHang(1L, "ten1", "cmnd1", true, "diachi1", "dt1", "quoctich1", date, "nghe1", "cat1", "og1");
@@ -150,48 +217,48 @@ public class test {
 //		dsDAO.insert(ds25);
 //		dsDAO.insert(ds26);
 		
-		PhongDAO pDAO = new PhongDAOimpl();
-		
-		Function<Phong, Room> mapper = new Function<Phong, Room>() {
-			
-			@Override
-			public Room apply(Phong t) {
-				ThietBiDAO tbDAO = new ThietBiDAOimpl();
-				Room r = new Room(1L, "", 1L, 1);
-				Room room = new Room(t.getID(), t.getLoaiPhong(), t.getGiaPhong(), t.getTinhTrang());
-				List<DeviceRoom> listDevice = new ArrayList<>();
-				try {
-					listDevice.addAll(tbDAO.getDeviceByIdRoom(t.getID()));
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				StringBuilder moTa = new StringBuilder();
-				for(DeviceRoom tb : listDevice) {
-					moTa.append(tb.getTenTB() + " : " + tb.getSoLuong() + "\n");
-				}
-				room.setMoTa(moTa.toString());
-				return room;
-			}
-		};
-		
-		List<Phong> listRoom = new ArrayList<>();
-		try {
-			listRoom.addAll(pDAO.findAll());
-		} catch (SQLException e) {
-		}
-		List<Room> list = listRoom.stream().map(mapper).collect(Collectors.toCollection(ArrayList::new));
-		String c = "Trống";
-		if(!c.equals("Tất cả")) {
-			list = list.stream().filter(new Predicate<Room>() {
-				
-				@Override
-				public boolean test(Room t) {
-					return t.getTinhTrang().equals(c);
-				}
-			}).collect(Collectors.toCollection(ArrayList::new));
-		}
-		System.out.println(list.size());
+//		PhongDAO pDAO = new PhongDAOimpl();
+//		
+//		Function<Phong, Room> mapper = new Function<Phong, Room>() {
+//			
+//			@Override
+//			public Room apply(Phong t) {
+//				ThietBiDAO tbDAO = new ThietBiDAOimpl();
+//				Room r = new Room(1L, "", 1L, 1);
+//				Room room = new Room(t.getID(), t.getLoaiPhong(), t.getGiaPhong(), t.getTinhTrang());
+//				List<DeviceRoom> listDevice = new ArrayList<>();
+//				try {
+//					listDevice.addAll(tbDAO.getDeviceByIdRoom(t.getID()));
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//				StringBuilder moTa = new StringBuilder();
+//				for(DeviceRoom tb : listDevice) {
+//					moTa.append(tb.getTenTB() + " : " + tb.getSoLuong() + "\n");
+//				}
+//				room.setMoTa(moTa.toString());
+//				return room;
+//			}
+//		};
+//		
+//		List<Phong> listRoom = new ArrayList<>();
+//		try {
+//			listRoom.addAll(pDAO.findAll());
+//		} catch (SQLException e) {
+//		}
+//		List<Room> list = listRoom.stream().map(mapper).collect(Collectors.toCollection(ArrayList::new));
+//		String c = "Trống";
+//		if(!c.equals("Tất cả")) {
+//			list = list.stream().filter(new Predicate<Room>() {
+//				
+//				@Override
+//				public boolean test(Room t) {
+//					return t.getTinhTrang().equals(c);
+//				}
+//			}).collect(Collectors.toCollection(ArrayList::new));
+//		}
+//		System.out.println(list.size());
+
+	
 	}
-	
-	
 }
