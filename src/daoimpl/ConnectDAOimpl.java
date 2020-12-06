@@ -65,4 +65,30 @@ public class ConnectDAOimpl implements ConnectDAO{
 		return false;
 	}
 
+	@Override
+	public Connect findConnectByID_TP(Long id) throws SQLException {
+		Connect tb = null;
+        String sql = "select * from connect where ID_TP = ?";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        preparedStatement.setLong(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            tb = getObject(resultSet);
+        }
+        return tb;
+	}
+
+	@Override
+	public Connect findConnectByID_CT(Long id) throws SQLException {
+		Connect tb = null;
+        String sql = "select * from connect where ID_chiTiet = ?";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        preparedStatement.setLong(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            tb = getObject(resultSet);
+        }
+        return tb;
+	}
+
 }

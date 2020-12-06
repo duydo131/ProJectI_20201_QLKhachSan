@@ -11,6 +11,7 @@ public class DeviceRoomMapper {
 		try {
 			dr.setTenTB(rs.getString("tenTB"));
 			dr.setSoLuong(rs.getLong("soLuong"));
+			dr.setGia(rs.getLong("Gia"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

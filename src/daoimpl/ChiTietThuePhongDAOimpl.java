@@ -131,4 +131,17 @@ public class ChiTietThuePhongDAOimpl implements ChiTietThuePhongDAO{
         }
         return tb;
 	}
+
+	@Override
+	public ChiTietThuePhong findById_P(Long id) throws SQLException {
+		ChiTietThuePhong tb = null;
+        String sql = "select * from chiTietThuePhong where ID_P = ? and active = true";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        preparedStatement.setLong(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            tb = getObject(resultSet);
+        }
+        return tb;
+	}
 }

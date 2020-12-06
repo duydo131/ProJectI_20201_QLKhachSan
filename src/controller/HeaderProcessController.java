@@ -28,6 +28,9 @@ public class HeaderProcessController implements Initializable{
 	
 	@FXML
 	Button device;
+	
+	@FXML
+	Button pay;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -93,6 +96,19 @@ public class HeaderProcessController implements Initializable{
 				try {
 					clear();
 					content.getChildren().add(FXMLLoader.load(this.getClass().getResource("/view/DeviceLayout.fxml")));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		pay.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					clear();
+					content.getChildren().add(FXMLLoader.load(this.getClass().getResource("/view/PayLayout.fxml")));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
