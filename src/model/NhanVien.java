@@ -2,10 +2,14 @@ package model;
 
 import java.util.Date;
 
-public class NhanVien {
+import model.add.Docx;
+
+public class NhanVien extends Docx{
+	private Integer stt;
 	private Long ID;
 	private String Ten;
-	private Boolean GioiTinh;
+	private Boolean GioiTinh = true;
+	private String gt;
 	private Date NgaySinh;
 	private String ChuyenMon;
 	private String CMND;
@@ -20,6 +24,7 @@ public class NhanVien {
 		ID = iD;
 		Ten = ten;
 		GioiTinh = gioiTinh;
+		this.gt = this.GioiTinh ? "Nam" : "Nữ";
 		NgaySinh = ngaySinh;
 		ChuyenMon = chuyenMon;
 		CMND = cMND;
@@ -31,11 +36,20 @@ public class NhanVien {
 		ID = iD;
 		Ten = ten;
 		GioiTinh = gioiTinh;
+		this.gt = this.GioiTinh ? "Nam" : "Nữ";
 		NgaySinh = ngaySinh;
 		ChuyenMon = chuyenMon;
 		CMND = cMND;
 		DienThoai = dienThoai;
 		this.active = active;
+	}
+
+	public Integer getStt() {
+		return stt;
+	}
+
+	public void setStt(Integer stt) {
+		this.stt = stt;
 	}
 
 	public Long getID() {
@@ -60,6 +74,14 @@ public class NhanVien {
 
 	public void setGioiTinh(Boolean gioiTinh) {
 		GioiTinh = gioiTinh;
+	}
+
+	public String getGt() {
+		return gt;
+	}
+
+	public void setGt(String gt) {
+		this.gt = gt;
 	}
 
 	public Date getNgaySinh() {

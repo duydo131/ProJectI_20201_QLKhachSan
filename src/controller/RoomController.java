@@ -3,6 +3,7 @@ package controller;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Function;
@@ -12,18 +13,23 @@ import dao.PhongDAO;
 import dao.ThietBiDAO;
 import daoimpl.PhongDAOimpl;
 import daoimpl.ThietBiDAOimpl;
+import generate.DOCX.GenerateDocx;
+import generate.DOCX.PhongDocx;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Phong;
 import model.add.DeviceRoom;
+import model.add.Room;
+import utils.Util;
 
 public class RoomController implements Initializable{
 	
@@ -51,6 +57,9 @@ public class RoomController implements Initializable{
 	@FXML
 	ComboBox<String> choose;
 	
+	@FXML
+	Button scan;
+	
 	private Function<Phong, Room> mapper;
 
 	@Override
@@ -64,7 +73,7 @@ public class RoomController implements Initializable{
 		
 		choose.getItems().addAll("Tất cả", "Trống", "Đã thuê", "Sửa chữa");
 		
-		mapper = new Function<Phong, RoomController.Room>() {
+		mapper = new Function<Phong, Room>() {
 			@Override
 			public Room apply(Phong t) {
 				ThietBiDAO tbDAO = new ThietBiDAOimpl();
@@ -105,6 +114,19 @@ public class RoomController implements Initializable{
 		if(!listRoom.isEmpty()) {
 			table.setItems(FXCollections.observableArrayList(listRoom));
 		}
+		
+		scan.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				List<Room> list = (List<Room>)table.getItems();
+				GenerateDocx docx = new PhongDocx(new Date(), list);
+				String file = docx.generateDocx();
+				Util util = new Util();
+				util.Toast();
+				if(!file.equals("")) util.open(file);
+			}
+		});
 	}
 	
 	private List<Room> getList(){
@@ -119,59 +141,5 @@ public class RoomController implements Initializable{
 		return list;
 	}
 	
-	public class Room{
-		private String s[] = {"Trống", "Đã thuê", "Sửa chữa"};
-		private Long ID;
-	    private String LoaiPhong;
-	    private Long GiaPhong;
-	    private String TinhTrang;
-	    private String MoTa;
-	    
-		public Room(Long iD, String loaiPhong, Long giaPhong, Integer tinhTrang) {
-			ID = iD;
-			LoaiPhong = loaiPhong;
-			GiaPhong = giaPhong;
-			TinhTrang = s[tinhTrang];
-		}
-
-		public Long getID() {
-			return ID;
-		}
-
-		public void setID(Long iD) {
-			ID = iD;
-		}
-
-		public String getLoaiPhong() {
-			return LoaiPhong;
-		}
-
-		public void setLoaiPhong(String loaiPhong) {
-			LoaiPhong = loaiPhong;
-		}
-
-		public Long getGiaPhong() {
-			return GiaPhong;
-		}
-
-		public void setGiaPhong(Long giaPhong) {
-			GiaPhong = giaPhong;
-		}
-
-		public String getTinhTrang() {
-			return TinhTrang;
-		}
-
-		public void setTinhTrang(String tinhTrang) {
-			TinhTrang = tinhTrang;
-		}
-
-		public String getMoTa() {
-			return MoTa;
-		}
-
-		public void setMoTa(String moTa) {
-			MoTa = moTa;
-		}	
-	}
+	
 }

@@ -18,7 +18,7 @@ public class MainTestLayout extends Application{
 		CommonController ctl = CommonController.getInstance();
 		ctl.setStage(arg0);
 		try {
-			root = FXMLLoader.load(this.getClass().getResource("/view/PayLayout.fxml"));
+			root = FXMLLoader.load(this.getClass().getResource("/view/DeviceLayout.fxml"));
 			arg0.setTitle("Quản Lý Khách Sạn");
 			scene = new Scene(root);
 		} catch (IOException e1) {

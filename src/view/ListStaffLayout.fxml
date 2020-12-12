@@ -25,5 +25,6 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Button fx:id="scan" layoutX="681.0" layoutY="426.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="In" />
    </children>
 </AnchorPane>

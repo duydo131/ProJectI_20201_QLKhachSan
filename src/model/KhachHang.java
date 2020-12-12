@@ -2,11 +2,15 @@ package model;
 
 import java.util.Date;
 
-public class KhachHang {
+import model.add.Docx;
+
+public class KhachHang extends Docx{
+	private Integer stt;
     private Long maKH;
     private String tenKH;
     private String cmnd;
-    private boolean gioiTinh;
+    private boolean gioiTinh = true;
+    private String gt;
     private String diaChi;
     private String dienThoai;
     private String quocTich;
@@ -25,6 +29,7 @@ public class KhachHang {
         this.tenKH = tenKH;
         this.cmnd = cmnd;
         this.gioiTinh = gioiTinh;
+        this.gt = this.gioiTinh ? "Nam" : "Nữ";
         this.diaChi = diaChi;
         this.dienThoai = dienThoai;
         this.quocTich = quocTich;
@@ -40,6 +45,7 @@ public class KhachHang {
 		this.tenKH = tenKH;
 		this.cmnd = cmnd;
 		this.gioiTinh = gioiTinh;
+        this.gt = this.gioiTinh ? "Nam" : "Nữ";
 		this.diaChi = diaChi;
 		this.dienThoai = dienThoai;
 		this.quocTich = quocTich;
@@ -48,6 +54,14 @@ public class KhachHang {
 		this.phanLoaiKH = phanLoaiKH;
 		this.tenToChuc = tenToChuc;
 		this.active = active;
+	}
+
+	public Integer getStt() {
+		return stt;
+	}
+
+	public void setStt(Integer stt) {
+		this.stt = stt;
 	}
 
 	public Long getMaKH() {
@@ -82,7 +96,15 @@ public class KhachHang {
         this.gioiTinh = gioiTinh;
     }
 
-    public String getDiaChi() {
+    public String getGt() {
+		return gt;
+	}
+
+	public void setGt(String gt) {
+		this.gt = gt;
+	}
+
+	public String getDiaChi() {
         return diaChi;
     }
 
