@@ -2,29 +2,22 @@ package controller;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import dao.NhanVienDAO;
 import daoimpl.NhanVienDAOimpl;
-import generate.DOCX.GenerateDocx;
-import generate.DOCX.NhanVienDocx;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.NhanVien;
-import model.add.Staff;
-import utils.Util;
 
 public class ListStaffController implements Initializable{
 	@FXML
@@ -53,9 +46,6 @@ public class ListStaffController implements Initializable{
 
 	@FXML 
 	TableColumn<Staff, String> ngaySinh;
-	
-	@FXML
-	Button scan;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -80,17 +70,83 @@ public class ListStaffController implements Initializable{
 			table.setItems(FXCollections.observableArrayList(list));
 		}
 		
-		scan.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				List<Staff> list = (List<Staff>)table.getItems();
-				GenerateDocx docx = new NhanVienDocx(new Date(), list);
-				String file = docx.generateDocx();
-				Util util = new Util();
-				util.Toast();
-				if(!file.equals("")) util.open(file);
-			}
-		});
+	}
+	
+	public class Staff{
+		private Long ID;
+		private String Ten;
+		private String GioiTinh;
+		private String NgaySinh;
+		private String ChuyenMon;
+		private String CMND;
+		private String DienThoai;
+		
+		private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+		public Staff(NhanVien nv) {
+			ID = nv.getID();
+			Ten = nv.getTen();
+			GioiTinh = nv.getGioiTinh() ? "Nam" : "Nữ";
+			NgaySinh = format.format(nv.getNgaySinh());
+			ChuyenMon = nv.getChuyenMon();
+			CMND = nv.getCMND();
+			DienThoai = nv.getDienThoai();
+		}
+
+		public Long getID() {
+			return ID;
+		}
+
+		public void setID(Long iD) {
+			ID = iD;
+		}
+
+		public String getTen() {
+			return Ten;
+		}
+
+		public void setTen(String ten) {
+			Ten = ten;
+		}
+
+		public String getGioiTinh() {
+			return GioiTinh;
+		}
+
+		public void setGioiTinh(String gioiTinh) {
+			GioiTinh = gioiTinh;
+		}
+
+		public String getNgaySinh() {
+			return NgaySinh;
+		}
+
+		public void setNgaySinh(String ngaySinh) {
+			NgaySinh = ngaySinh;
+		}
+
+		public String getChuyenMon() {
+			return ChuyenMon;
+		}
+
+		public void setChuyenMon(String chuyenMon) {
+			ChuyenMon = chuyenMon;
+		}
+
+		public String getCMND() {
+			return CMND;
+		}
+
+		public void setCMND(String cMND) {
+			CMND = cMND;
+		}
+
+		public String getDienThoai() {
+			return DienThoai;
+		}
+
+		public void setDienThoai(String dienThoai) {
+			DienThoai = dienThoai;
+		}
 	}
 }

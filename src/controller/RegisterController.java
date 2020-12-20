@@ -20,7 +20,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -33,7 +32,7 @@ public class RegisterController implements Initializable{
 	TextField hoTen;
 	
 	@FXML
-	DatePicker ngaySinh;
+	TextField ngaySinh;
 	
 	@FXML
 	TextField CMND;
@@ -69,6 +68,9 @@ public class RegisterController implements Initializable{
 	Label inMK2;
 	
 	@FXML
+	Label inNgaySinh;
+	
+	@FXML
 	Label inCMND;
 	
 	@FXML
@@ -87,6 +89,7 @@ public class RegisterController implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				inTen.setText("");
+				inNgaySinh.setText("");
 				inCMND.setText("");
 				inMK1.setText("");
 				inMK2.setText("");
@@ -96,18 +99,14 @@ public class RegisterController implements Initializable{
 				String matKhau1_NV = (String)matKhau1.getText();
 				String matKhau2_NV = (String)matKhau2.getText();
 				String ten_NV = (String)hoTen.getText();
-				String ngaySinh_NV = (String)ngaySinh.getValue().toString();
+				String ngaySinh_NV = (String)ngaySinh.getText();
 				String CMND_NV = (String)CMND.getText();
 				String chuyenMon_NV = (String)chuyenMon.getText();
 				String dienThoai_NV = (String)dienThoai.getText();
 				String gioiTinh_NV = (String)gioiTinh.getValue();
 				
-				System.out.println(ngaySinh_NV);
-				
-				ngaySinh.getValue();
-				
 				Date date = new Date();
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 				boolean flag = true;
 				
 				
@@ -131,12 +130,17 @@ public class RegisterController implements Initializable{
 					inCMND.setText("Invalid");
 					flag = false;
 				}
-				try {
-					date = format.parse(ngaySinh_NV);
-				} catch (ParseException e) {
+				if(ngaySinh_NV.equals("")) {
+					inNgaySinh.setText("Invalid");
 					flag = false;
+				}else {
+					try {
+						date = format.parse(ngaySinh_NV);
+					} catch (ParseException e) {
+						inNgaySinh.setText("Invalid");
+						flag = false;
+					}
 				}
-				
 				if(flag) {
 					try {
 						if(loginDAO.contains(tenDangNhap_NV) == null) {

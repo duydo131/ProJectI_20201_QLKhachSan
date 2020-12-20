@@ -24,6 +24,5 @@
         </columns>
       </TableView>
       <ComboBox fx:id="choose" layoutX="97.0" layoutY="63.0" prefWidth="150.0" />
-      <Button fx:id="scan" layoutX="769.0" layoutY="502.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="In" />
    </children>
 </AnchorPane>

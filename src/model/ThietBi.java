@@ -1,9 +1,6 @@
 package model;
 
-import model.add.Docx;
-
-public class ThietBi extends Docx{
-	private Integer stt;
+public class ThietBi {
 	private Long ID; 
     private String TenTB;
     private Long Gia;
@@ -23,14 +20,6 @@ public class ThietBi extends Docx{
 		TenTB = tenTB;
 		Gia = gia;
 		this.active = active;
-	}
-
-	public Integer getStt() {
-		return stt;
-	}
-
-	public void setStt(Integer stt) {
-		this.stt = stt;
 	}
 
 	public Long getID() {
